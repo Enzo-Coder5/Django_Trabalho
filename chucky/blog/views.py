@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Post
 
 
-# Página inicial simples
+@login_required(login_url='/login/')
 def home(request):
     return render(request, 'home.html')
 
@@ -45,3 +46,14 @@ def logout_view(request):
 # Tela com botão para recuperação de senha
 def recuperar_senha(request):
     return render(request, 'recuperar_senha.html')
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Conta criada com sucesso! Faça login.")
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+    return render(request, "register.html", {"form": form})
