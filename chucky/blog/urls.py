@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('testing/', views.testing, name='testing'),
 
-    
+   
     path('login/', auth_views.LoginView.as_view(
         template_name='login.html'
     ), name='login'),
@@ -50,13 +50,13 @@ urlpatterns = [
 
     
     path('cadastrar/', views.register, name='register'),
-
-    
     path('perfil/', views.perfil, name='perfil'),
 
+    
+    path('pessoas/', views.lista_pessoas, name='lista_pessoas'),
+    path('pessoas/<int:pessoa_id>/', views.detalhe_pessoa, name='detalhe_pessoa'),
+
+    
     path('forcar-403/', views.erro_403, name='forcar_403'),
-
     path('forcar-500/', views.erro_500, name='forcar_500'),
-
-
 ]

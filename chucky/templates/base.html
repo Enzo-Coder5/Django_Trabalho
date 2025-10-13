@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}Meu Site{% endblock %}</title>
   {% load django_bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
@@ -21,11 +19,6 @@
     {% if user.is_authenticated %}
      
       <li class="nav-item">
-        <a class="nav-link link-light" href="{% url 'perfil' %}">Perfil</a>
-      </li>
-
-      
-      <li class="nav-item">
         <a class="nav-link link-light" href="{% url 'password_change' %}">Alterar Senha</a>
       </li>
 
@@ -37,11 +30,14 @@
         </form>
       </li>
     {% else %}
+      
       <li class="nav-item ms-auto">
         <a class="nav-link link-light" href="{% url 'login' %}">Entrar</a>
       </li>
+
+      
       <li class="nav-item">
-        <a class="nav-link link-light" href="{% url 'register' %}">Cadastrar</a>
+        <a class="btn btn-success btn-sm ms-2" href="{% url 'register' %}">Cadastrar</a>
       </li>
     {% endif %}
   </ul>
