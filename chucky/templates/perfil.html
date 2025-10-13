@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card mx-auto shadow" style="max-width: 500px;">
+  <div class="card-header bg-info text-white text-center">
+    <h4>Meu Perfil</h4>
+  </div>
+  <div class="card-body">
+    <p><strong>Usuário:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email|default:"(não informado)" }}</p>
+    <p><strong>Nome:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+    <p><strong>Último login:</strong> {{ user.last_login|date:"d/m/Y H:i" }}</p>
+    <p><strong>Data de cadastro:</strong> {{ user.date_joined|date:"d/m/Y H:i" }}</p>
+  </div>
+  <div class="card-footer text-center">
+    <a href="{% url 'password_change' %}" class="btn btn-warning btn-sm">Alterar Senha</a>
+    <form action="{% url 'logout' %}" method="post" class="d-inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger btn-sm">Sair</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

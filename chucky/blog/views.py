@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.template import loader
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 from .models import Post
+
 
 
 @login_required(login_url='/login/')
@@ -12,15 +12,13 @@ def home(request):
     return render(request, 'home.html')
 
 
-# Exemplo de listagem de posts
+
 def testing(request):
-    posts = Post.objects.all().values()
-    template = loader.get_template('home.html')
-    context = {'posts': posts}
-    return HttpResponse(template.render(context, request))
+    posts = Post.objects.all()
+    return render(request, 'home.html', {'posts': posts})
 
 
-# Login usando autenticação do Django
+
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -30,22 +28,26 @@ def login_view(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect('/')
+            messages.success(request, f"Bem-vindo, {user.username}!")
+            return redirect('home')
         else:
             messages.error(request, "Usuário ou senha inválidos.")
 
     return render(request, 'login.html')
 
 
-# Logout → redireciona para a tela de logout.html
+
 def logout_view(request):
     auth_logout(request)
-    return render(request, 'logout.html')
+    messages.info(request, "Você saiu da sua conta.")
+    return redirect('login')
 
 
-# Tela com botão para recuperação de senha
+
 def recuperar_senha(request):
     return render(request, 'recuperar_senha.html')
+
+
 
 def register(request):
     if request.method == "POST":
@@ -54,6 +56,24 @@ def register(request):
             form.save()
             messages.success(request, "Conta criada com sucesso! Faça login.")
             return redirect("login")
+        else:
+            messages.error(request, "Erro ao criar conta. Verifique os dados.")
     else:
         form = UserCreationForm()
     return render(request, "register.html", {"form": form})
+
+
+
+@login_required(login_url='/login/')
+def perfil(request):
+    return render(request, "perfil.html", {"user": request.user})
+
+from django.http import HttpResponseForbidden
+
+def erro_403(request):
+    return HttpResponseForbidden("Acesso negado!")
+
+def erro_500(request):
+    1 / 0
+
+

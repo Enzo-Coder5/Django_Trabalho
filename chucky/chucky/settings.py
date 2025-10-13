@@ -4,17 +4,15 @@ Django settings for chucky project.
 
 from pathlib import Path
 
-# Caminho base do projeto
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Segurança
-SECRET_KEY = 'django-insecure-%+smz#$7fa^iet+*de_u_sr7&a6e7zo+4jyi*4juqroc#fq_ig'
-DEBUG = True
-ALLOWED_HOSTS = []
 
-# -------------------------
-# Aplicativos instalados
-# -------------------------
+SECRET_KEY = 'django-insecure-%+smz#$7fa^iet+*de_u_sr7&a6e7zo+4jyi*4juqroc#fq_ig'
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,16 +21,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Apps do projeto
+
     'blog',
 
-    # Bootstrap
-    'bootstrap5',
+   
+    'django_bootstrap5',
 ]
 
-# -------------------------
-# Middleware
-# -------------------------
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -45,13 +41,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'chucky.urls'
 
-# -------------------------
-# Templates
-# -------------------------
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Agora o Django também procura templates na pasta global "templates"
+        
         'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -66,9 +60,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chucky.wsgi.application'
 
-# -------------------------
-# Banco de dados
-# -------------------------
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -76,9 +68,7 @@ DATABASES = {
     }
 }
 
-# -------------------------
-# Validação de senha
-# -------------------------
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -86,20 +76,17 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# -------------------------
-# Internacionalização
-# -------------------------
+
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Maceio'
 USE_I18N = True
 USE_TZ = True
 
-# -------------------------
-# Arquivos estáticos
-# -------------------------
+
 STATIC_URL = 'static/'
 
-# -------------------------
-# Configuração padrão de chave primária
-# -------------------------
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'

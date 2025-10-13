@@ -1,38 +1,17 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
+
 {% block content %}
-<div class="row justify-content-center mt-5">
-  <div class="col-md-6">
-    <div class="card shadow">
-      <div class="card-header bg-success text-white text-center">
-        <h4>Criar Conta</h4>
-      </div>
-      <div class="card-body">
-        <form method="post">
-          {% csrf_token %}
-          {{ form.non_field_errors }}
+  <h2 class="mb-4 text-center">Criar Conta</h2>
 
-          <div class="mb-3">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-          </div>
-          <div class="mb-3">
-            {{ form.password1.label_tag }}
-            {{ form.password1 }}
-          </div>
-          <div class="mb-3">
-            {{ form.password2.label_tag }}
-            {{ form.password2 }}
-          </div>
+  <form method="post" class="mx-auto" style="max-width: 400px;">
+    {% csrf_token %}
+    {% bootstrap_form form layout='floating' %}
+    <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+  </form>
 
-          <button type="submit" class="btn btn-success w-100">Cadastrar</button>
-        </form>
-
-        <!-- 🔙 Botão de voltar -->
-        <div class="text-center mt-3">
-          <a href="{% url 'login' %}" class="btn btn-secondary w-100">Voltar para Login</a>
-        </div>
-      </div>
-    </div>
+  <div class="text-center mt-3">
+    <a href="{% url 'login' %}" class="btn btn-link">Já tem conta? Entrar</a>
   </div>
-</div>
 {% endblock %}
+    

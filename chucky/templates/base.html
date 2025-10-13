@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  {% load bootstrap5 %}
+  <meta charset="UTF-8">
+  <title>{% block title %}Meu Site{% endblock %}</title>
+  {% load django_bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
 </head>
@@ -17,12 +19,17 @@
     </li>
 
     {% if user.is_authenticated %}
-      <!-- Botão Alterar Senha -->
+     
+      <li class="nav-item">
+        <a class="nav-link link-light" href="{% url 'perfil' %}">Perfil</a>
+      </li>
+
+      
       <li class="nav-item">
         <a class="nav-link link-light" href="{% url 'password_change' %}">Alterar Senha</a>
       </li>
 
-      <!-- Botão Logout -->
+      
       <li class="nav-item ms-auto">
         <form action="{% url 'logout' %}" method="post" style="display:inline;">
           {% csrf_token %}
@@ -32,6 +39,9 @@
     {% else %}
       <li class="nav-item ms-auto">
         <a class="nav-link link-light" href="{% url 'login' %}">Entrar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-light" href="{% url 'register' %}">Cadastrar</a>
       </li>
     {% endif %}
   </ul>
