@@ -2,33 +2,25 @@
 
 {% block content %}
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Lista de Pessoas</h2>
-    <a href="{% url 'criar_pessoa' %}" class="btn btn-primary">
-      + Adicionar Pessoa
-    </a>
-  </div>
+  <h2 class="mb-4">Lista de Pessoas</h2>
 
-  <table class="table table-hover table-bordered shadow-sm">
+  <table class="table table-striped table-bordered shadow-sm">
     <thead class="table-dark">
       <tr>
         <th>Nome</th>
+        <th>Usuário</th>
         <th>CPF</th>
         <th>Email</th>
         <th>Telefone</th>
         <th>Data de Nascimento</th>
         <th>Endereços</th>
-        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       {% for pessoa in pessoas %}
       <tr>
-        <td>
-          <a href="{% url 'detalhe_pessoa' pessoa.id %}">
-            {{ pessoa.nome }}
-          </a>
-        </td>
+        <td>{{ pessoa.nome }}</td>
+        <td>{{ pessoa.usuario.username }}</td>
         <td>{{ pessoa.cpf }}</td>
         <td>{{ pessoa.email }}</td>
         <td>{{ pessoa.telefone }}</td>
@@ -37,16 +29,15 @@
           {% if pessoa.enderecos.all %}
             <ul class="mb-0">
               {% for endereco in pessoa.enderecos.all %}
-                <li>{{ endereco.rua }}, {{ endereco.numero }} - {{ endereco.bairro }} ({{ endereco.cidade }}/{{ endereco.estado }})</li>
+                <li>
+                  {{ endereco.rua }}, {{ endereco.numero }} - {{ endereco.bairro }},
+                  {{ endereco.cidade }}/{{ endereco.estado }} ({{ endereco.cep }})
+                </li>
               {% endfor %}
             </ul>
           {% else %}
             <em>Sem endereço cadastrado</em>
           {% endif %}
-        </td>
-        <td>
-          <a href="{% url 'editar_pessoa' pessoa.id %}" class="btn btn-sm btn-warning">Editar</a>
-          <a href="{% url 'excluir_pessoa' pessoa.id %}" class="btn btn-sm btn-danger">Excluir</a>
         </td>
       </tr>
       {% empty %}
