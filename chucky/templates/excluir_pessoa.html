@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card mx-auto shadow" style="max-width: 500px;">
+    <div class="card-header bg-danger text-white text-center">
+      <h4>Excluir Pessoa</h4>
+    </div>
+    <div class="card-body text-center">
+      <p>Tem certeza que deseja excluir? <strong>{{ pessoa.nome }}</strong>?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">Sim, excluir</button>
+        <a href="{% url 'lista_pessoas' %}" class="btn btn-secondary btn-sm">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('testing/', views.testing, name='testing'),
 
-   
+    
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('cadastrar/', views.register, name='register'),
@@ -43,8 +43,18 @@ urlpatterns = [
     
     path('pessoas/', views.lista_pessoas, name='lista_pessoas'),
     path('pessoas/<int:pessoa_id>/', views.detalhe_pessoa, name='detalhe_pessoa'),
+    path('pessoas/<int:pessoa_id>/editar/', views.editar_pessoa, name='editar_pessoa'),
+
 
     
     path('forcar-403/', views.erro_403, name='forcar_403'),
     path('forcar-500/', views.erro_500, name='forcar_500'),
+
+    
+    path('comum/', views.pagina_comum, name='pagina_comum'),
+    path('admin/', views.pagina_administrador, name='pagina_administrador'),
+    path('gerente/', views.pagina_gerente, name='pagina_gerente'),
+    
+    path('pessoas/<int:pessoa_id>/excluir/', views.excluir_pessoa, name='excluir_pessoa'),
+
 ]
